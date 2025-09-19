@@ -2,110 +2,136 @@
 
 A comprehensive Flutter application that generates intelligent quizzes from documents (PDF and PowerPoint) using AI, with performance tracking and achievement system.
 
-> **🎉 SUCCESS: This Flutter app has been successfully converted to React Native!**
-> 
-> **Conversion Status:** ✅ **COMPLETED** (4/5 major tasks done)
-> - ✅ React Native Expo project setup with TypeScript
-> - ✅ Firebase Firestore integration (replacing SQLite)
-> - ✅ Complete data models converted from Dart to TypeScript
-> - ✅ All core services implemented (AI, Database, Document processing)
-> - 🚧 UI screens conversion in progress
->
-> **New Features Added in React Native Version:**
-> - 🔥 Firebase Firestore for real-time cloud sync
-> - 📱 Expo Go for instant testing on any device
-> - 🌐 Enhanced cross-platform support
-> - 💾 Cloud-based data persistence
-
-## Features
+## � Features
 
 ### 📄 Document Processing
 - Upload PDF documents (.pdf)
 - Upload PowerPoint presentations (.ppt, .pptx)
-- Extract and preprocess text content from slides and speaker notes
+- Extract and preprocess text content from documents
+- Automatic subject detection and content analysis
 - Support for various document formats
-- Automatic subject detection
 
 ### 🤖 AI-Powered Question Generation
-- Multiple choice questions (4 options)
-- True/False questions
-- Enumeration questions (list-based answers)
-- Configurable difficulty levels (Easy, Medium, Hard)
-- Intelligent content analysis for relevant questions
+- **Multiple Choice**: 4 options with one correct answer
+- **True/False**: Binary choice questions
+- **Enumeration**: List-based questions requiring multiple answers
+- **Configurable Difficulty**: Easy, Medium, Hard levels
+- **Smart Content Analysis**: AI analyzes document content for relevant questions
+- **Batch Processing**: Handles large documents by chunking content
 
 ### 📊 Performance Analytics
-**Strengths & Weaknesses Tracking:**
-```
-STRENGTHS           |  WEAKNESSES
-___________________|__________________
-English Subject    |  Math Subject
-                   |  Science Subject
-                   |
-```
-
-- Subject-specific performance analysis
-- Overall score tracking
-- Progress monitoring over time
-- Detailed quiz statistics
+- Subject-specific performance tracking
+- Overall score and progress monitoring
+- Strengths and weaknesses identification
+- Detailed quiz statistics and history
+- Performance trends over time
 
 ### 🏆 Achievement System
 **Three Types of Rewards:**
 
-| Reward Type | Purpose                    | Example Use                              |
-|-------------|---------------------------|------------------------------------------|
-| **Badges**  | Progress and Habit Builder | "Completed 5 Study Sessions This Week"  |
-|             | Encourage consistency     | "Focused for 30 Minutes Without Distraction" |
-| **Medals**  | Personal Milestone        | "First Full Month of Studying"          |
-|             |                           | "Mastered All Vocabulary in Unit 1"     |
-| **Ribbons** | Subject-Specific Recognition | "Best in English"                     |
-|             |                           | "Best in Science", "Best in Math"       |
+| Type | Purpose | Examples |
+|------|---------|----------|
+| **🏅 Badges** | Progress & Habits | "5 Study Sessions This Week", "30 Min Focused Study" |
+| **🥇 Medals** | Personal Milestones | "First Full Month", "Perfect Score", "Quiz Master" |
+| **🎗️ Ribbons** | Subject Mastery | "English Master", "Math Expert", "Science Pro" |
 
 ### 🎯 Quiz Customization
 - Choose number of questions (5-50)
-- Select question types
+- Select specific question types
 - Set difficulty level
-- Custom quiz titles
+- Custom quiz titles and subjects
+- Flexible quiz configuration
 
-### 💾 Local Storage
+### 💾 Data Persistence
 - SQLite database for offline functionality
 - Quiz history and progress tracking
 - Achievement progress persistence
 - Performance analytics storage
+- Local file management
 
-## Technical Architecture
+## 🛠️ Technical Architecture
 
-### Models
-- **Question**: Represents individual quiz questions with metadata
-- **Quiz**: Complete quiz structure with questions and user answers
-- **Achievement**: Badge/medal/ribbon system with unlock criteria
-- **PerformanceAnalytics**: Subject-wise performance tracking
-- **User**: User profile and preferences
+### 📱 Tech Stack
+- **Framework**: Flutter 3.9.2+
+- **Language**: Dart
+- **Database**: SQLite (sqflite)
+- **State Management**: Provider pattern
+- **AI Integration**: HTTP API calls (Groq/OpenAI compatible)
+- **Document Processing**: Syncfusion PDF, Archive/XML parsing
+- **UI**: Material Design 3 with custom theming
 
-### Services
-- **DocumentService**: PDF and PowerPoint text extraction and preprocessing
-- **PdfService**: Legacy PDF-only service (deprecated)
-- **AIService**: Question generation and answer validation
-- **DatabaseService**: Local data persistence
-- **AchievementService**: Achievement logic and progress tracking
+### 🏗️ Project Structure
+```
+lib/
+├── models/               # Data models
+│   ├── question.dart     # Question model with types and validation
+│   ├── quiz.dart         # Quiz structure and metadata
+│   ├── achievement.dart  # Achievement system models
+│   ├── user.dart         # User profile and preferences
+│   └── performance_analytics.dart
+├── services/             # Business logic services
+│   ├── ai_service.dart   # AI question generation
+│   ├── database_service.dart  # SQLite operations
+│   └── document_service.dart  # PDF/PPT processing
+├── providers/            # State management
+│   ├── quiz_provider.dart
+│   ├── achievement_provider.dart
+│   └── performance_provider.dart
+├── screens/              # UI screens
+│   ├── home_screen.dart
+│   ├── quiz_list_screen.dart
+│   ├── pdf_upload_screen.dart
+│   ├── achievements_screen.dart
+│   └── performance_screen.dart
+├── widgets/              # Reusable UI components
+└── main.dart            # App entry point
+```
 
-### Providers (State Management)
-- **QuizProvider**: Quiz creation and management
-- **AchievementProvider**: Achievement tracking
-- **PerformanceProvider**: Analytics and progress monitoring
+### 🔧 Key Models
 
-## Setup Instructions
+**Question Model:**
+```dart
+class Question {
+  final String id;
+  final String text;
+  final QuestionType type;  // multipleChoice, trueFalse, enumeration
+  final List<String> options;
+  final String correctAnswer;
+  final List<String> correctAnswers;  // For enumeration
+  final String subject;
+  final DifficultyLevel difficulty;
+  final String explanation;
+  final DateTime createdAt;
+}
+```
+
+**Quiz Model:**
+```dart
+class Quiz {
+  final String id;
+  final String title;
+  final String subject;
+  final List<Question> questions;
+  final DateTime createdAt;
+  final QuizStatus status;
+  final Map<String, String> userAnswers;
+  final double? score;
+}
+```
+
+## 🚀 Getting Started
 
 ### Prerequisites
-- Flutter SDK (3.9.2+)
+- Flutter SDK 3.9.2 or higher
 - Dart SDK
-- Android Studio / VS Code
-- API key for AI service (OpenAI, Groq, etc.)
+- Android Studio / VS Code with Flutter extensions
+- AI API key (Groq, OpenAI, or compatible service)
 
 ### Installation
 
 1. **Clone the repository:**
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/your-username/ai_questionaire.git
    cd ai_questionaire
    ```
 
@@ -114,155 +140,224 @@ English Subject    |  Math Subject
    flutter pub get
    ```
 
-3. **Configure AI Service:**
-   - Open `lib/services/ai_service.dart`
-   - Replace `YOUR_API_KEY_HERE` with your actual API key
-   - Update the `_baseUrl` if using a different AI service
+3. **Set up environment variables:**
+   ```bash
+   # Copy the example environment file
+   cp .env.example .env
+   
+   # Edit .env and add your API key
+   GROQ_API_KEY=your_actual_api_key_here
+   ```
 
 4. **Run the app:**
    ```bash
    flutter run
    ```
 
-### Configuration Options
+### 🔑 API Configuration
 
-#### AI Service Configuration
-The app supports multiple AI providers. Update the following in `ai_service.dart`:
+The app uses environment variables for secure API key management:
 
-```dart
-// For OpenAI
-static const String _baseUrl = 'https://api.openai.com/v1';
-static const String _apiKey = 'your-openai-api-key';
+1. Create a `.env` file in the project root
+2. Add your API key:
+   ```
+   GROQ_API_KEY=your_groq_api_key_here
+   ```
+3. The app automatically loads this configuration at startup
 
-// For other providers, update accordingly
-```
+**Supported AI Providers:**
+- Groq (default)
+- OpenAI (modify base URL in `ai_service.dart`)
+- Any OpenAI-compatible API
 
-#### Database Configuration
-The app uses SQLite for local storage. No additional configuration required.
-
-## Usage Guide
+## 📱 Usage Guide
 
 ### Creating a Quiz
-1. Navigate to the Dashboard
-2. Tap "Upload PDF & Create Quiz"
-3. Select a PDF file from your device
-4. Configure quiz settings:
+1. **Upload Document**: Tap "Upload PDF & Create Quiz" from the home screen
+2. **Select File**: Choose a PDF or PowerPoint file
+3. **Configure Quiz**:
    - Enter quiz title
-   - Choose number of questions
-   - Select difficulty level
-   - Pick question types
-5. Tap "Generate Quiz"
+   - Set number of questions (5-50)
+   - Choose difficulty level
+   - Select question types
+4. **Generate**: AI processes the document and creates questions
+5. **Review**: Quiz is saved and ready to take
 
 ### Taking a Quiz
-1. Go to "Quizzes" tab
-2. Select a quiz from the list
-3. Answer questions according to their type:
+1. Navigate to "Quizzes" tab
+2. Select a quiz from your library
+3. Answer questions based on type:
    - **Multiple Choice**: Select one option
    - **True/False**: Choose True or False
-   - **Enumeration**: List multiple answers
-4. View results and explanations
+   - **Enumeration**: List multiple answers (comma-separated)
+4. Submit and view results with explanations
 
-### Viewing Performance
-1. Navigate to "Performance" tab
-2. View overall statistics
-3. Check strengths and weaknesses by subject
-4. Track progress over time
+### Tracking Performance
+1. Go to "Performance" tab
+2. View overall statistics and trends
+3. Analyze strengths and weaknesses by subject
+4. Monitor progress over time
 
-### Checking Achievements
-1. Go to "Achievements" tab
-2. Browse badges, medals, and ribbons
-3. View unlock progress
-4. See recently earned achievements
+### Earning Achievements
+1. Complete quizzes and study sessions
+2. Check "Achievements" tab for progress
+3. View recently earned badges, medals, and ribbons
+4. Track unlock criteria for upcoming achievements
 
-## Achievement Details
+## 🏗️ Development
 
-### Badges (Progress & Consistency)
-- **First Steps**: Complete your first quiz
-- **Study Streak**: Complete 5 study sessions in a week
-- **Focused Learner**: Study for 30+ minutes without distraction
-
-### Medals (Milestones)
-- **Monthly Scholar**: Active for a full month
-- **Perfect Scholar**: Achieve 100% on any quiz
-- **Quiz Master**: Complete 50+ quizzes
-
-### Ribbons (Subject Mastery)
-- **English Master**: 85%+ average in English
-- **Math Master**: 85%+ average in Math  
-- **Science Master**: 85%+ average in Science
-
-## Technical Dependencies
-
+### Key Dependencies
 ```yaml
 dependencies:
   flutter: sdk
-  provider: ^6.1.2           # State management
-  file_picker: ^8.0.7        # Document file selection
-  syncfusion_flutter_pdf: ^26.2.14  # PDF processing
-  archive: ^3.6.1            # PowerPoint archive handling
-  xml: ^6.5.0                # PowerPoint XML parsing
-  sqflite: ^2.3.3            # Local database
-  http: ^1.2.2               # API requests
-  google_fonts: ^6.2.1       # Typography
-  font_awesome_flutter: ^10.7.0  # Icons
-  lottie: ^3.1.2             # Animations
+  
+  # State Management
+  provider: ^6.1.2
+  
+  # Document Processing
+  file_picker: ^8.0.7
+  syncfusion_flutter_pdf: ^26.2.14
+  archive: ^3.6.1
+  xml: ^6.5.0
+  
+  # Database & Storage
+  sqflite: ^2.3.3+1
+  shared_preferences: ^2.3.2
+  path: ^1.9.0
+  
+  # Networking
+  http: ^1.2.2
+  dio: ^5.6.0
+  
+  # Environment Variables
+  flutter_dotenv: ^5.1.0
+  
+  # UI & Animation
+  animations: ^2.0.11
+  lottie: ^3.1.2
+  flutter_staggered_animations: ^1.1.1
+  font_awesome_flutter: ^10.7.0
+  google_fonts: ^6.2.1
 ```
 
-## Performance Considerations
+### Environment Setup
+```bash
+# Install dependencies
+flutter pub get
 
-- **PDF Processing**: Large PDFs are chunked for efficient processing
-- **AI Requests**: Content is split to respect API limits
-- **Database**: Optimized queries with proper indexing
-- **Memory**: Efficient image and asset loading
+# Run tests
+flutter test
 
-## Future Enhancements
+# Build for Android
+flutter build apk
 
-- [ ] Cloud synchronization
-- [ ] Multiplayer quiz modes
-- [ ] Advanced analytics dashboard
-- [ ] Export/share functionality
-- [ ] Voice-to-text for answers
-- [ ] OCR for image-based PDFs
-- [ ] Social features and leaderboards
+# Build for iOS
+flutter build ios
+```
 
-## Troubleshooting
+### Code Structure Guidelines
+- **Models**: Pure data classes with serialization
+- **Services**: Business logic and external API integration
+- **Providers**: State management with ChangeNotifier
+- **Screens**: Full-page UI components
+- **Widgets**: Reusable UI components
+
+## 🧪 Testing
+
+Run the test suite:
+```bash
+flutter test
+```
+
+Test files are located in the `test/` directory and cover:
+- Document service functionality
+- Widget testing
+- Model validation
+- Database operations
+
+## 🚀 Deployment
+
+### Android
+```bash
+flutter build apk --release
+```
+
+### iOS
+```bash
+flutter build ios --release
+```
+
+### Web
+```bash
+flutter build web
+```
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch: `git checkout -b feature/amazing-feature`
+3. Make your changes and test thoroughly
+4. Commit your changes: `git commit -m 'Add amazing feature'`
+5. Push to the branch: `git push origin feature/amazing-feature`
+6. Open a Pull Request
+
+### Development Guidelines
+- Follow Dart/Flutter style guidelines
+- Add tests for new features
+- Update documentation for API changes
+- Use conventional commit messages
+
+## 📝 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🐛 Troubleshooting
 
 ### Common Issues
 
 **PDF Upload Fails:**
-- Check file format (must be PDF)
-- Ensure file size is reasonable
-- Verify file permissions
+- Verify file format (PDF/PPT/PPTX only)
+- Check file size (< 10MB recommended)
+- Ensure sufficient device storage
 
 **AI Generation Fails:**
-- Check API key configuration
-- Verify internet connection
-- Check API rate limits
+- Verify API key in `.env` file
+- Check internet connectivity
+- Monitor API rate limits
 
-**App Crashes:**
-- Clear app data
+**App Performance:**
+- Clear app cache: Settings > Storage > Clear Cache
 - Restart the application
-- Check device storage space
+- Check available device memory
 
-## Contributing
+**Database Issues:**
+- App will recreate database on next launch if corrupted
+- User data is automatically backed up locally
 
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Add tests if applicable
-5. Submit a pull request
+## 📞 Support
 
-## License
+- 🐛 **Bug Reports**: [GitHub Issues](https://github.com/your-username/ai_questionaire/issues)
+- 💡 **Feature Requests**: [GitHub Discussions](https://github.com/your-username/ai_questionaire/discussions)
+- 📧 **Email**: support@yourapp.com
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+## 🗺️ Roadmap
 
-## Support
+### v2.0 (Planned)
+- [ ] Cloud synchronization with Firebase
+- [ ] Multi-user support and sharing
+- [ ] Advanced analytics dashboard
+- [ ] Export functionality (PDF reports)
+- [ ] Offline AI model support
 
-For issues and support:
-- Create an issue on GitHub
-- Check the troubleshooting section
-- Review the documentation
+### v2.1 (Future)
+- [ ] Voice-to-text for answers
+- [ ] OCR for image-based PDFs
+- [ ] Social features and leaderboards
+- [ ] Custom achievement creation
+- [ ] Integration with learning management systems
 
 ---
 
-**Built with ❤️ using Flutter & AI**
+**Built with ❤️ using Flutter & AI Technology**
+
+*Last updated: September 2025*
